@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анкета кандидата</title>
+    <!-- Font Awesome для іконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #000000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Зірки на фоні */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Випадкові позиції для зірок */
+        .star:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+        .star:nth-child(2) { top: 20%; left: 80%; animation-delay: 0.5s; }
+        .star:nth-child(3) { top: 30%; left: 10%; animation-delay: 1s; }
+        .star:nth-child(4) { top: 40%; left: 90%; animation-delay: 1.5s; }
+        .star:nth-child(5) { top: 50%; left: 30%; animation-delay: 2s; }
+        .star:nth-child(6) { top: 60%; left: 70%; animation-delay: 2.5s; }
+        .star:nth-child(7) { top: 70%; left: 15%; animation-delay: 0.3s; }
+        .star:nth-child(8) { top: 80%; left: 85%; animation-delay: 0.8s; }
+        .star:nth-child(9) { top: 15%; left: 50%; animation-delay: 1.2s; }
+        .star:nth-child(10) { top: 25%; left: 40%; animation-delay: 1.7s; }
+        .star:nth-child(11) { top: 35%; left: 60%; animation-delay: 2.2s; }
+        .star:nth-child(12) { top: 45%; left: 25%; animation-delay: 0.6s; }
+        .star:nth-child(13) { top: 55%; left: 75%; animation-delay: 1.1s; }
+        .star:nth-child(14) { top: 65%; left: 45%; animation-delay: 1.6s; }
+        .star:nth-child(15) { top: 75%; left: 55%; animation-delay: 2.1s; }
+        .star:nth-child(16) { top: 85%; left: 35%; animation-delay: 0.4s; }
+        .star:nth-child(17) { top: 5%; left: 65%; animation-delay: 0.9s; }
+        .star:nth-child(18) { top: 90%; left: 20%; animation-delay: 1.4s; }
+        .star:nth-child(19) { top: 12%; left: 88%; animation-delay: 1.9s; }
+        .star:nth-child(20) { top: 48%; left: 12%; animation-delay: 2.4s; }
+        .star:nth-child(21) { top: 8%; left: 35%; animation-delay: 0.2s; }
+        .star:nth-child(22) { top: 28%; left: 65%; animation-delay: 0.7s; }
+        .star:nth-child(23) { top: 38%; left: 22%; animation-delay: 1.3s; }
+        .star:nth-child(24) { top: 58%; left: 82%; animation-delay: 1.8s; }
+        .star:nth-child(25) { top: 68%; left: 38%; animation-delay: 2.3s; }
+        .star:nth-child(26) { top: 78%; left: 68%; animation-delay: 0.1s; }
+        .star:nth-child(27) { top: 18%; left: 48%; animation-delay: 0.5s; }
+        .star:nth-child(28) { top: 42%; left: 78%; animation-delay: 1.0s; }
+        .star:nth-child(29) { top: 62%; left: 18%; animation-delay: 1.5s; }
+        .star:nth-child(30) { top: 82%; left: 58%; animation-delay: 2.0s; }
+
+        /* Більші зірки */
+        .star.large {
+            width: 3px;
+            height: 3px;
+        }
+
+        .star:nth-child(3n) {
+            width: 3px;
+            height: 3px;
+        }
+
+        /* Decorative emojis - flying pastries */
+        .pastry-decoration {
+            position: absolute;
+            font-size: 50px;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 8px rgba(255,255,255,0.2));
+            user-select: none;
+        }
+
+        /* Hover effects */
+        .pastry-decoration:hover {
+            opacity: 1;
+            z-index: 20;
+            transform: scale(1.3) rotate(15deg);
+        }
+
+        /* Chaotic flying animations */
+        .pastry1 { 
+            top: 15%; 
+            left: 8%; 
+            animation: float1 8s ease-in-out infinite;
+        }
+        
+        .pastry2 { 
+            top: 25%; 
+            left: 85%; 
+            animation: float2 10s ease-in-out infinite;
+        }
+        
+        .pastry3 { 
+            top: 45%; 
+            left: 5%; 
+            animation: float3 12s ease-in-out infinite;
+        }
+        
+        .pastry4 { 
+            top: 10%; 
+            right: 15%; 
+            animation: float4 9s ease-in-out infinite;
+        }
+        
+        .pastry5 { 
+            top: 60%; 
+            right: 10%; 
+            animation: float5 11s ease-in-out infinite;
+        }
+        
+        .pastry6 { 
+            top: 30%; 
+            right: 25%; 
+            animation: float6 13s ease-in-out infinite;
+        }
+        
+        .pastry7 { 
+            bottom: 15%; 
+            left: 12%; 
+            animation: float7 10s ease-in-out infinite;
+        }
+        
+        .pastry8 { 
+            bottom: 35%; 
+            left: 18%; 
+            animation: float8 14s ease-in-out infinite;
+        }
+        
+        .pastry9 { 
+            bottom: 20%; 
+            left: 75%; 
+            animation: float9 9s ease-in-out infinite;
+        }
+        
+        .pastry10 { 
+            bottom: 10%; 
+            right: 20%; 
+            animation: float10 12s ease-in-out infinite;
+        }
+        
+        .pastry11 { 
+            bottom: 40%; 
+            right: 8%; 
+            animation: float11 11s ease-in-out infinite;
+        }
+        
+        .pastry12 { 
+            top: 70%; 
+            left: 40%; 
+            animation: float12 13s ease-in-out infinite;
+        }
+
+        .pastry13 { 
+            top: 50%; 
+            left: 25%; 
+            animation: float13 10s ease-in-out infinite;
+        }
+        
+        .pastry14 { 
+            top: 35%; 
+            left: 60%; 
+            animation: float14 11s ease-in-out infinite;
+        }
+
+        .pastry15 { 
+            bottom: 25%; 
+            left: 45%; 
+            animation: float15 12s ease-in-out infinite;
+        }
+
+        .pastry16 { 
+            top: 80%; 
+            right: 30%; 
+            animation: float16 9s ease-in-out infinite;
+        }
+
+        /* Float animations */
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, -20px) rotate(90deg); }
+            50% { transform: translate(-20px, 15px) rotate(180deg); }
+            75% { transform: translate(25px, 30px) rotate(270deg); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-40px, 25px) rotate(120deg); }
+            66% { transform: translate(35px, -30px) rotate(240deg); }
+        }
+
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, 40px) scale(1.2); }
+        }
+
+        @keyframes float4 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-35px, 20px) rotate(-90deg); }
+            50% { transform: translate(30px, -25px) rotate(-180deg); }
+            75% { transform: translate(-20px, 35px) rotate(-270deg); }
+        }
+
+        @keyframes float5 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-50px) rotate(180deg); }
+        }
+
+        @keyframes float6 {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(40px, -30px); }
+            66% { transform: translate(-30px, 35px); }
+        }
+
+        @keyframes float7 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-45px, -35px) rotate(180deg); }
+        }
+
+        @keyframes float8 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, 25px) scale(1.1); }
+            75% { transform: translate(-25px, -30px) scale(0.9); }
+        }
+
+        @keyframes float9 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(35px, 40px) rotate(120deg); }
+            66% { transform: translate(-40px, -35px) rotate(240deg); }
+        }
+
+        @keyframes float10 {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            50% { transform: translateX(60px) rotate(180deg); }
+        }
+
+        @keyframes float11 {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(-30px, 35px); }
+            50% { transform: translate(40px, -40px); }
+            75% { transform: translate(-35px, -30px); }
+        }
+
+        @keyframes float12 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(30px, 45px) rotate(-180deg); }
+        }
+
+        @keyframes float13 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-40px, 30px) scale(1.15); }
+        }
+
+        @keyframes float14 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(25px, -35px) rotate(120deg); }
+            66% { transform: translate(-30px, 40px) rotate(240deg); }
+        }
+
+        @keyframes float15 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(40px); }
+        }
+
+        @keyframes float16 {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(35px, 30px); }
+            75% { transform: translate(-30px, -25px); }
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(15, 15, 30, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.5),
+                0 0 60px rgba(102, 126, 234, 0.3),
+                inset 0 0 30px rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            position: relative;
+            z-index: 10;
+        }
+
+        .glow {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #4facfe, #667eea);
+            background-size: 400% 400%;
+            border-radius: 30px;
+            z-index: -1;
+            opacity: 0.6;
+            filter: blur(20px);
+            animation: glowRotate 8s linear infinite;
+        }
+
+        @keyframes glowRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .title-icon {
+            font-size: 35px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 
+                0 0 20px rgba(102, 126, 234, 0.8),
+                0 0 40px rgba(102, 126, 234, 0.5),
+                0 4px 8px rgba(0, 0, 0, 0.8),
+                2px 2px 4px rgba(0, 0, 0, 1);
+            letter-spacing: 0.5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-shadow: 
+                0 2px 4px rgba(0,0,0,0.8),
+                0 0 10px rgba(102, 126, 234, 0.5),
+                1px 1px 2px rgba(0,0,0,1);
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(102, 126, 234, 0.8);
+            box-shadow: 
+                0 0 0 3px rgba(102, 126, 234, 0.2),
+                0 0 20px rgba(102, 126, 234, 0.4);
+        }
+
+        input::placeholder {
+            color: rgba(226, 232, 240, 0.6);
+            font-weight: 400;
+        }
+
+        .error-message {
+            color: #fca5a5;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Success message styling */
+        .success-message {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .form-content.hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .success-icon {
+            margin-bottom: 20px;
+            animation: scaleIn 0.6s ease;
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Success box в космічному стилі */
+        .success-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 
+                0 0 30px rgba(102, 126, 234, 0.4),
+                inset 0 0 20px rgba(102, 126, 234, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .success-box p {
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 500;
+            line-height: 1.6;
+            margin: 0;
+            text-shadow: 
+                0 2px 4px rgba(0,0,0,0.8),
+                0 0 10px rgba(102, 126, 234, 0.5),
+                1px 1px 2px rgba(0,0,0,1);
+        }
+
+        .success-box a {
+            color: #4facfe;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+        }
+
+        .success-box a:hover {
+            color: #7dd3fc;
+            text-shadow: 0 0 20px rgba(125, 211, 252, 0.8);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .title-icon {
+                font-size: 28px;
+            }
+
+            .pastry-decoration {
+                font-size: 35px;
+            }
+
+            .success-box {
+                padding: 20px;
+            }
+
+            .success-box p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Зірки на фоні -->
+    <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+    </div>
+
+    <!-- Емодзі випічки та кави -->
+    <div class="pastry-decoration pastry1">🥐</div>
+    <div class="pastry-decoration pastry2">🍩</div>
+    <div class="pastry-decoration pastry3">☕</div>
+    <div class="pastry-decoration pastry4">🧁</div>
+    <div class="pastry-decoration pastry5">🍰</div>
+    <div class="pastry-decoration pastry6">🍪</div>
+    <div class="pastry-decoration pastry7">🥐</div>
+    <div class="pastry-decoration pastry8">🍩</div>
+    <div class="pastry-decoration pastry9">☕</div>
+    <div class="pastry-decoration pastry10">🧁</div>
+    <div class="pastry-decoration pastry11">🍰</div>
+    <div class="pastry-decoration pastry12">🍪</div>
+    <div class="pastry-decoration pastry13">🥯</div>
+    <div class="pastry-decoration pastry14">🥞</div>
+    <div class="pastry-decoration pastry15">🧇</div>
+    <div class="pastry-decoration pastry16">🍮</div>
+
+    <div class="container">
+        <div class="glow"></div>
+        <div class="form-wrapper">
+            <!-- Header -->
+            <div class="header">
+                <div class="title-row">
+                    <div class="title-icon">🥐</div>
+                    <h1>Анкета кандидата</h1>
+                    <div class="title-icon">🥐</div>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form id="leadForm" class="form-content">
+                <div class="form-group">
+                    <label>
+                        <i class="fa-solid fa-star" style="color: #fbbf24;"></i>
+                        Ім'я
+                    </label>
+                    <input type="text" name="name" id="name" placeholder="Введіть ваше ім'я" required>
+                    <div class="error-message" id="nameError">Будь ласка, введіть ім'я</div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <i class="fa-solid fa-calendar" style="color: #a78bfa;"></i>
+                        Вік
+                    </label>
+                    <input type="number" name="age" id="age" placeholder="Ваш вік" min="17" max="100" required>
+                    <div class="error-message" id="ageError">Вік повинен бути мінімум 17 років</div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <i class="fa-solid fa-city" style="color: #60a5fa;"></i>
+                        Місто
+                    </label>
+                    <input type="text" name="city" id="city" placeholder="Ваше місто" required>
+                    <div class="error-message" id="cityError">Будь ласка, введіть місто</div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <i class="fa-solid fa-phone" style="color: #34d399;"></i>
+                        Номер телефону
+                    </label>
+                    <input type="tel" name="phone" id="phone" placeholder="+38 (0XX) XXX-XX-XX" pattern="[0-9+\-\s()]+" title="Тільки цифри та символи +, -, (), пробіл" required>
+                    <div class="error-message" id="phoneError">Тільки цифри та символи +, -, (), пробіл</div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <i class="fa-brands fa-telegram" style="color: #38bdf8;"></i>
+                        Телеграм
+                    </label>
+                    <input type="text" name="telegram" id="telegram" placeholder="@username" pattern="[@a-zA-Z0-9_]+" title="Тільки англійські літери, цифри та символи @ _" required>
+                    <div class="error-message" id="telegramError">Тільки англійські літери, цифри та символи @ _</div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Відправити
+                </button>
+            </form>
+
+            <!-- Success Message -->
+            <div id="successMessage" class="success-message">
+                <i class="fa-solid fa-circle-check success-icon" style="color: #22c55e; font-size: 80px;"></i>
+                
+                <div class="success-box">
+                    <p>Найближчим часом з Вами зв'яжеться наш HR і запросить Вас на співбесіду.</p>
+                    <br>
+                    <p>Контакт HR: <a href="https://t.me/UkraineHRWork" target="_blank">@UkraineHRWork</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // URL вашого Google Apps Script
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzoaMSdpGRh39fj5k9OOkb4pUMnXQAk7XHQ9V1tJgzqxpmKQyt9yV9b4lnc61YnrBzPgA/exec';
+
+        // Розумне обмеження довжини телефону в залежності від коду країни
+        document.getElementById('phone').addEventListener('input', function(e) {
+            // Видаляємо букви
+            let value = this.value.replace(/[^0-9+\-\s()]/g, '');
+            
+            // Рахуємо тільки цифри для обмеження
+            let digits = value.replace(/[^0-9]/g, '');
+            
+            // Визначаємо максимальну довжину в залежності від коду країни
+            let maxDigits = 15; // За замовчуванням
+            
+            if (value.startsWith('+1')) {
+                maxDigits = 11; // США, Канада: +1 XXX XXX XXXX
+            } else if (value.startsWith('+7')) {
+                maxDigits = 11; // Росія, Казахстан: +7 XXX XXX XX XX
+            } else if (value.startsWith('+380') || value.startsWith('+38 ')) {
+                maxDigits = 12; // Україна: +380 XX XXX XX XX
+            } else if (value.startsWith('0') && !value.startsWith('+')) {
+                maxDigits = 10; // Українські номери без коду: 0XX XXX XX XX
+            } else if (value.startsWith('+')) {
+                maxDigits = 15; // Інші країни - дозволяємо більше
+            } else {
+                maxDigits = 12; // За замовчуванням
+            }
+            
+            // Якщо цифр більше ніж дозволено - обрізаємо
+            if (digits.length > maxDigits) {
+                // Знаходимо позицію останньої дозволеної цифри
+                let digitCount = 0;
+                let cutPosition = 0;
+                
+                for (let i = 0; i < value.length; i++) {
+                    if (/[0-9]/.test(value[i])) {
+                        digitCount++;
+                        if (digitCount === maxDigits) {
+                            cutPosition = i + 1;
+                            break;
+                        }
+                    }
+                }
+                
+                value = value.slice(0, cutPosition);
+            }
+            
+            this.value = value;
+        });
+
+        // Блокуємо кирилицю та заборонені символи в Телеграмі в реальному часі
+        document.getElementById('telegram').addEventListener('input', function(e) {
+            // Дозволяємо тільки англійські літери, цифри, @ та _
+            this.value = this.value.replace(/[^@a-zA-Z0-9_]/g, '');
+        });
+
+        // Блокуємо введення букв у поле віку
+        document.getElementById('age').addEventListener('input', function(e) {
+            // Дозволяємо тільки цифри
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Отримуємо значення полів
+            const name = document.getElementById('name').value.trim();
+            const age = document.getElementById('age').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const telegram = document.getElementById('telegram').value.trim();
+            
+            // Валідація віку
+            if (parseInt(age) < 17) {
+                alert('Вік повинен бути мінімум 17 років');
+                return;
+            }
+            
+            // Валідація телефону
+            const phoneDigits = phone.replace(/[^0-9]/g, '');
+            if (phoneDigits.length < 10) {
+                alert('Будь ласка, введіть повний номер телефону\nМінімум 10 цифр');
+                return;
+            }
+            
+            // Валідація Телеграму (тільки англійські літери, цифри і символи)
+            const telegramRegex = /^[@a-zA-Z0-9_]+$/;
+            if (!telegramRegex.test(telegram)) {
+                alert('Телеграм може містити тільки англійські літери, цифри та символи @ _');
+                return;
+            }
+            
+            // Проста валідація
+            if (!name || !age || !city || !phone || !telegram) {
+                alert('Будь ласка, заповніть усі поля');
+                return;
+            }
+            
+            // Блокуємо кнопку
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Відправка...';
+            
+            try {
+                // Відправляємо дані в Google Sheets
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('age', age);
+                formData.append('city', city);
+                formData.append('phone', phone);
+                formData.append('telegram', telegram);
+                formData.append('timestamp', new Date().toLocaleString('uk-UA'));
+                
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    // Ховаємо форму
+                    document.querySelector('.form-content').classList.add('hidden');
+                    
+                    // Показуємо повідомлення про успіх
+                    document.getElementById('successMessage').classList.add('active');
+                } else {
+                    throw new Error('Помилка відправки');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Виникла помилка при відправці. Спробуйте ще раз.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Відправити';
+            }
+        });
+    </script>
+</body>
+</html>
